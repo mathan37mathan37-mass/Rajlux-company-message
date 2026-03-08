@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<div class="top-bar">
+
+<input type="text" id="search" placeholder="Search by name or email">
+<div class="analytics"></div>
+<div class="card"><h3>Total Messages: </h3>
+<p id="counter">0</p>
+</div>
+<div class="card">
+<h3>Today Messages</h3>
+<p id="today">0</p>
+</div>
+</div>
+<button onclick="logout()">Logout</button>
+
+</div>
+
+<div id="messages"></div>
+
+<script>
+
+if(localStorage.getItem("adminLogin") !== "true"){
+  window.location.href = "admin-login.html";
+}
+
+function logout(){
+  localStorage.removeItem("adminLogin");
+  window.location.href = "admin-login.html";
+}
+
+</script>
+
+<script type="module" src="firebase-admin.js"></script>
+
+</body>
+</html>

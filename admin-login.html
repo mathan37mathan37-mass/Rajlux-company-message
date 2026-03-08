@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Login</title>
+<link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+<div class="login-box">
+<h2>Admin Login</h2>
+
+<input type="password" id="adminPass" placeholder="Enter Admin Password">
+
+<button onclick="checkPassword()">Login</button>
+
+<p id="error"></p>
+</div>
+
+<script>
+
+function checkPassword(){
+
+const password = document.getElementById("adminPass").value;
+
+if(password === "admin123"){
+    
+    localStorage.setItem("adminLogin","true");
+    window.location.href = "admin.html";
+
+}else{
+    document.getElementById("error").innerText="Wrong Password!";
+}
+
+}
+
+</script>
+
+</body>
+</html>
