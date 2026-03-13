@@ -66,9 +66,13 @@ container.innerHTML += `
 
 <h3>${msg.name}</h3>
 
-<p>${msg.email}</p>
+<p><b>Email:</b> ${msg.email}</p>
 
-<p>${msg.message}</p>
+<p><b>Phone:</b> ${msg.phone || "Not provided"}</p>
+
+<p><b>Service:</b> ${msg.service || "Not selected"}</p>
+
+<p><b>Message:</b> ${msg.message}</p>
 
 <small>📅 ${date}</small>
 
