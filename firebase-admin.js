@@ -6,7 +6,8 @@ getFirestore,
 collection,
 getDocs,
 deleteDoc,
-doc
+doc,
+onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
@@ -22,19 +23,34 @@ appId: "1:486645620594:web:9a1d6028d8f142b68847eb"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+
+
+
+let soundEnabled = false;
+
+document.addEventListener("click", () => {
+soundEnabled = true;
+});
+
+
+
 let messagesData = [];
 
 
-async function loadMessages(){
+let previousCount = 0;
 
-const querySnapshot = await getDocs(collection(db,"messages"));
+function listenMessages(){
+
+const messagesRef = collection(db,"messages");
+
+onSnapshot(messagesRef,(snapshot)=>{
 
 const container = document.getElementById("messages");
 container.innerHTML = "";
 
 messagesData = [];
 
-querySnapshot.forEach((docSnap)=>{
+snapshot.forEach((docSnap)=>{
 
 const data = docSnap.data();
 
@@ -47,8 +63,24 @@ id: docSnap.id,
 
 document.getElementById("counter").innerText = messagesData.length;
 
+/* 🔔 Notification if new message arrives */
+
+if(messagesData.length > previousCount && previousCount !== 0){
+
+if(soundEnabled){
+document.getElementById("notifSound").play();
+}
+
+alert("🔔 New customer message received!");
+
+}
+
+previousCount = messagesData.length;
+
 displayMessages(messagesData);
 updateAnalytics(messagesData);
+
+});
 
 }
 
@@ -91,7 +123,7 @@ if(confirm("Delete this message?")){
 
 await deleteDoc(doc(db,"messages",id));
 
-loadMessages();
+listenMessages();
 
 }
 
@@ -139,4 +171,7 @@ document.getElementById("today").innerText = todayCount;
 
 }
 
-loadMessages();
+listenMessages();
+
+
+setInterval(listenMessages, 5000);
