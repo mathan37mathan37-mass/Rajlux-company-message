@@ -7,8 +7,8 @@
 
 <body>
 
-<h1>Admin Dashboard</h1>
-
+<center><h1>Admin Dashboard</h1></center>
+<button  class="log"  onclick="logout()">Logout</button>
 <div class="top-bar">
 
 <input type="text" id="search" placeholder="Search by name or email">
@@ -21,12 +21,41 @@
 <p id="today">0</p>
 </div>
 </div>
-<button onclick="logout()">Logout</button>
+<div class="service-stats">
+
+<div class="box">
+<h3 id="webCount">0</h3>
+<h4>Web Development</h4>
+</div>
+
+<div class="box">
+<h3 id="mobileCount">0</h3>
+<h4>Mobile App</h4>
+</div>
+
+<div class="box">
+<h3 id="marketingCount">0</h3>
+<h4>Digital Marketing</h4>
+</div>
 
 </div>
 
-<div id="messages"></div>
 
+</div>
+
+<div class="filters">
+
+<button onclick="filterService('all')">All</button>
+
+<button onclick="filterService('web development')">Web</button>
+
+<button onclick="filterService('mobile app')">Mobile</button>
+
+<button onclick="filterService('digital marketing')">Marketing</button>
+
+</div>
+<div id="messages"></div>
+<audio id="notifSound" src="notification.mp3" preload="auto"></audio>
 <script>
 
 if(localStorage.getItem("adminLogin") !== "true"){
